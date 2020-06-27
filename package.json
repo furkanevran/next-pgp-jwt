@@ -1,0 +1,29 @@
+{
+  "name": "exercise",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/jsonwebtoken": "^8.5.0",
+    "axios": "^0.19.2",
+    "bcrypt": "^5.0.0",
+    "bluebird": "^3.7.2",
+    "cookie": "^0.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "next": "9.4.4",
+    "pg-monitor": "^1.4.0",
+    "pg-promise": "^10.5.7",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "@types/react": "^16.9.41",
+    "typescript": "^3.9.5"
+  }
+}
