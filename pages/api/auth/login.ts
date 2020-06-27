@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { compare } from  'bcrypt'
 import { sign } from 'jsonwebtoken'
 import { serialize } from 'cookie'
+import makeAuthCookie from '../../../utils/makeAuthCookie';
 
 const error = (res: NextApiResponse) => {
     let message = "Wrong e-mail or password.";
@@ -37,21 +38,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             return
         }
         
-        const claims = {
-            id: post.id,
-            email: post.email,
-            username: post.username
-        }
-
-        const jwt = sign(claims, process.env.APP_SECRET)
-        const authCookie = serialize('auth', jwt, {
-            sameSite: 'strict',
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 72576000,
-            httpOnly: true,
-            path: '/',
-        })
-
+        const {claims, authCookie} = makeAuthCookie(post)
+        
         res.setHeader('Set-Cookie', authCookie)
         res.status(200).json(claims); 
         return
