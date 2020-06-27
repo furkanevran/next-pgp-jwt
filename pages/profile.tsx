@@ -10,9 +10,7 @@ export default WithAuth(({authContext} : ProfilePropType) => {
     return (
     <>
     <div>Username: {authContext.user.username}</div>
-    <Link href="/">
-      <a onClick={authContext.logout}>Logout</a>
-    </Link>
+    <a onClick={authContext.logout}>Logout</a>
     </>
     )
 }, '/')

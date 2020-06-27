@@ -3,7 +3,7 @@ import User from "../db/models/user";
 import { verify } from "jsonwebtoken";
 import { parse } from 'cookie';
 
-export default (req: NextApiRequest):User {
+export default (req: NextApiRequest) : User => {
     if(req.headers.cookie) {
         const {auth} = parse(req.headers.cookie)
 

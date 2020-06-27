@@ -25,6 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
        }
 
        const post = await db.users.findByEmail(<string>email)
+
        if(!post) {
         error(res)
         return

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import User from '../db/models/user';
 import axios from 'axios'
+import useSWR from 'swr'
 
 export interface AuthContextType {
     loggedIn: boolean,
@@ -39,6 +40,18 @@ const logout = () => {
 export const AuthContextWrapper = ({children}) => {
     const [user, setUser] = useState(null)
 
+    useSWR('/api/auth/me', (url) => axios.get(url).then((d) => d.data), {
+        onError: () => {
+            window.localStorage.removeItem('user')
+            setUser(null)
+        },
+
+        onSuccess: (data) => {
+            window.localStorage.setItem('user', JSON.stringify(data))
+            setUser(data)
+        }
+    })
+
     const hookedLogin = async (username: string, password: string) : Promise<User | Error> => {
         const user = await login(username, password)
 
@@ -61,15 +74,14 @@ export const AuthContextWrapper = ({children}) => {
         }
     }
 
-    useEffect(refreshUser, [])
-
     useEffect(() => {
+        refreshUser()
 
         const syncAuth = async (event) => {
             if (event.key === 'user') {
                 refreshUser()
             }
-          }
+        }
 
         window.addEventListener('storage', syncAuth)
         return () => {

@@ -19,7 +19,8 @@
     "pg-monitor": "^1.4.0",
     "pg-promise": "^10.5.7",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "swr": "^0.2.3"
   },
   "devDependencies": {
     "@types/node": "^14.0.14",
