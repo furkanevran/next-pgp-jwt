@@ -42,6 +42,7 @@ export const AuthContextWrapper = ({children}) => {
 
     useSWR('/api/auth/me', (url) => axios.get(url).then((d) => d.data), {
         refreshInterval: 10000,
+        refreshWhenHidden: false,
 
         onError: () => {
             window.localStorage.removeItem('user')
