@@ -1,13 +1,18 @@
 import { useAuth } from '../hook/use-auth';
+import Link from 'next/link';
 
 export default function Header() {
     const { authContext }  = useAuth()
 
     return (
         <div className="header">
-            <div>Logo</div>
+            <Link href="/">
+                  <a>Logo</a>
+                </Link>
             <div>
-                {authContext.loggedIn ? "Profile" : "Login"}
+                {authContext.loggedIn ? (<Link href="/profile">
+                  <a>Profile</a>
+                </Link>) : "Login"}
             </div>
 
             <style jsx>{`
