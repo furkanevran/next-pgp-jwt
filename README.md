@@ -6,6 +6,7 @@ It uses:
 pg-promise,
 jsonwebtoken,
 bcrypt,
+swr,
 
 React Context API,
 Hooks.
