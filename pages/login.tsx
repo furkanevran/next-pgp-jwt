@@ -16,6 +16,7 @@ export default WithAuth(({authContext, user}: LoginPropTypes) => {
     )
 }, '/', true)
 
+/* Useless here */
 export const getServerSideProps = sspAuth((ctx, user) => {
     return {
         props: {

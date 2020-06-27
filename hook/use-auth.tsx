@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { AuthContext } from '../context/auth-context';
+import { AuthContext, AuthContextType } from '../context/auth-context';
 
 /**
  * Returns Auth Context and loading state
@@ -10,7 +10,7 @@ import { AuthContext } from '../context/auth-context';
 export const useAuth = (url?: string, redirectIfFound:boolean =  false) => {
     const [loading, setLoading] = useState(true)
 
-    const authContext = useContext(AuthContext)
+    const authContext : AuthContextType = useContext(AuthContext)
     const router = useRouter()
     
     useEffect(() => {
