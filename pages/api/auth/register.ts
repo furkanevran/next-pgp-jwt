@@ -7,6 +7,12 @@ function validateEmail(email): boolean {
     return re.test(String(email).toLowerCase());
 }
 
+interface BodyTypes {
+    username: string,
+    email: string,
+    pw: string
+}
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if(req.method !== "POST") {
         res.status(405).end();
@@ -14,7 +20,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     try {
-       const {username, email , pw } = req.body;
+        const { username, email , pw } : BodyTypes = {
+            username: req.body.username,
+            email: req.body.email.toLowerCase(),
+            pw: req.body.pw
+        };
        
        if((!email || email.length < 6) || (!pw || pw.length < 6) || (!username || username.length < 6)) {
             res.status(400).json({

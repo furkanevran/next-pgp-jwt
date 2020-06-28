@@ -11,7 +11,9 @@ export default function makeAuthCookie (user) {
         username: user.username
     }
 
-    const jwt = sign(claims, process.env.APP_SECRET)
+    const jwt = sign(claims, process.env.APP_SECRET, {
+        algorithm: 'HS256'
+    })
     const authCookie = serialize('auth', jwt, {
         sameSite: 'strict',
         secure: process.env.NODE_ENV === 'production',

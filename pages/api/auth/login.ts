@@ -1,9 +1,12 @@
 import { db } from '../../../db'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { compare } from  'bcrypt'
-import { sign } from 'jsonwebtoken'
-import { serialize } from 'cookie'
 import makeAuthCookie from '../../../utils/makeAuthCookie';
+
+interface BodyTypes {
+    email: string,
+    pw: string
+}
 
 const error = (res: NextApiResponse) => {
     let message = "Wrong e-mail or password.";
@@ -18,27 +21,30 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     try {
-       const {email , pw } = req.body;
+       const { email , pw } : BodyTypes = {
+           email: req.body.email.toLowerCase(),
+           pw: req.body.pw
+       };
 
        if((!email || email.length < 6) || (!pw || pw.length < 6)) {
         res.status(400).end(); 
         return
        }
 
-       const post = await db.users.findByEmail(<string>email)
+       const user = await db.users.findByEmail(<string>email)
 
-       if(!post) {
+       if(!user) {
         error(res)
         return
        }
-        const isPasswordRight = await compare(pw, post.password_hash)
+        const isPasswordRight = await compare(pw, user.password_hash)
 
         if(!isPasswordRight) {
             error(res)
             return
         }
         
-        const {claims, authCookie} = makeAuthCookie(post)
+        const {claims, authCookie} = makeAuthCookie(user)
         
         res.setHeader('Set-Cookie', authCookie)
         res.status(200).json(claims); 
