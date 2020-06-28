@@ -1,10 +1,19 @@
-import { NextApiRequest, GetServerSidePropsContext } from "next";
 import User from "../db/models/user";
 import { verify } from "jsonwebtoken";
 import { parse } from 'cookie';
-import { ParsedUrlQuery } from "querystring";
 
-export default (reqtx : NextApiRequest & GetServerSidePropsContext<ParsedUrlQuery>) : User | null => {
+interface GetUserFromReqCookieType {
+    req?: {
+        headers: {
+            cookie: any
+        }
+    },
+    headers?: {
+        cookie: any
+    }
+}
+
+export default (reqtx : GetUserFromReqCookieType) : User | null => {
     const myReq = reqtx.req ?? reqtx
 
     if(myReq.headers.cookie) {
