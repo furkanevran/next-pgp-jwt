@@ -10,7 +10,7 @@
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/jsonwebtoken": "^8.5.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "bluebird": "^3.7.2",
     "cookie": "^0.4.1",
